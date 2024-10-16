@@ -87,5 +87,10 @@ for row in range(3):
         button.grid(row=row+1, column=col, padx=5, pady=5)
         buttons[row][col] = button
 
+# Create a "Reset Game" button below the grid
+reset_button = tk.Button(root, text="Reset Game", font=('Arial', 16), bg="#D9D9D9", 
+                         command=reset_game)
+reset_button.grid(row=4, column=0, columnspan=3, pady=10)
+
 # Run the application
 root.mainloop()
