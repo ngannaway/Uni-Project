@@ -4,7 +4,7 @@ from tkinter import messagebox
 # Initialize the main application window
 root = tk.Tk()
 root.title("Tic Tac Toe")
-root.configure(bg="#F5F5F5")  # Light background color
+root.configure(bg="#c7c5c5")  # Light background color
 
 # Define button colors and styles
 button_bg_color = "#FFFFFF"
@@ -18,7 +18,7 @@ buttons = [[None, None, None], [None, None, None], [None, None, None]]
 current_player = "X"
 
 # Label to show which player's turn it is
-turn_label = tk.Label(root, text="Player X's turn", font=('Arial', 20), bg="#F5F5F5")
+turn_label = tk.Label(root, text="Player X's turn", font=('Arial', 20), bg="#c7c5c5")
 turn_label.grid(row=0, column=0, columnspan=3, pady=(10, 0))
 
 def check_winner():
