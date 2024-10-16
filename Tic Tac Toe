@@ -4,10 +4,22 @@ from tkinter import messagebox
 # Initialize the main application window
 root = tk.Tk()
 root.title("Tic Tac Toe")
+root.configure(bg="#F5F5F5")  # Light background color
+
+# Define button colors and styles
+button_bg_color = "#FFFFFF"
+button_hover_color = "#EFEFEF"
+x_color = "#FF6F61"
+o_color = "#6FA1FF"
+font_style = ('Arial', 24, 'bold')
 
 # Create a 3x3 board represented by buttons
 buttons = [[None, None, None], [None, None, None], [None, None, None]]
 current_player = "X"
+
+# Label to show which player's turn it is
+turn_label = tk.Label(root, text="Player X's turn", font=('Arial', 20), bg="#F5F5F5")
+turn_label.grid(row=0, column=0, columnspan=3, pady=(10, 0))
 
 def check_winner():
     # Check rows, columns, and diagonals for a win
@@ -35,8 +47,9 @@ def on_button_click(row, col):
     if buttons[row][col]["text"] != " ":
         return
 
-    # Update the button text with the current player's mark
+    # Update the button text and color with the current player's mark
     buttons[row][col]["text"] = current_player
+    buttons[row][col]["fg"] = x_color if current_player == "X" else o_color
 
     # Check for a win or draw
     if check_winner():
@@ -48,20 +61,30 @@ def on_button_click(row, col):
     else:
         # Switch player
         current_player = "O" if current_player == "X" else "X"
+        turn_label.config(text=f"Player {current_player}'s turn")
 
 def reset_game():
     global current_player
     current_player = "X"
+    turn_label.config(text="Player X's turn")
     for row in range(3):
         for col in range(3):
             buttons[row][col]["text"] = " "
+            buttons[row][col]["bg"] = button_bg_color
+            buttons[row][col]["fg"] = "black"
 
-# Create the Tic Tac Toe grid
+# Create the Tic Tac Toe grid with styled buttons
 for row in range(3):
     for col in range(3):
-        button = tk.Button(root, text=" ", font=('Arial', 24), width=5, height=2,
+        button = tk.Button(root, text=" ", font=font_style, width=5, height=2, 
+                           bg=button_bg_color, relief="solid",
                            command=lambda row=row, col=col: on_button_click(row, col))
-        button.grid(row=row, column=col)
+        
+        # Configure hover effect
+        button.bind("<Enter>", lambda e, b=button: b.config(bg=button_hover_color))
+        button.bind("<Leave>", lambda e, b=button: b.config(bg=button_bg_color))
+        
+        button.grid(row=row+1, column=col, padx=5, pady=5)
         buttons[row][col] = button
 
 # Run the application
